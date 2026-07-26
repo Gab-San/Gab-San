@@ -1,9 +1,7 @@
 name: Sync Discussions Comments to README
 on:
   discussion_comment:
-    types: [deleted]
-  schedule:
-    - cron: "0 0 * * *" # Runs once daily at midnight
+    types: [created, deleted]
   workflow_dispatch:
 jobs:
   update-readme:
@@ -46,20 +44,17 @@ jobs:
               const result = await github.graphql(query);
               const comments = result.repository.discussion.comments.nodes || [];
               
-              if (comments.length === 0) {
-                console.log("No comments found yet");
-                return;
-              }
-              
-              // Format into Markdown Table Rows (reverse to show newest last)
-              let tableContent = "";
+              // Format into styled boxes
+              let boxContent = "";
               comments.reverse().forEach(c => {
-                const cleanBody = c.body
-                  .replace(/\r?\n|\r/g, " ")
-                  .substring(0, 100)
-                  .trim() + (c.body.length > 100 ? "..." : "");
                 const date = c.createdAt.split('T')[0];
-                tableContent += `| [@${c.author.login}](https://github.com/${c.author.login}) | ${cleanBody} | ${date} |\n`;
+                const cleanBody = c.body.trim();
+                
+                boxContent += `<div style="background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
+                <div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">${date}</div>
+                <div style="color: #e6edf3; margin-bottom: 8px; line-height: 1.5;">${cleanBody}</div>
+                <div style="font-size: 12px; color: #58a6ff; text-align: right;">— <a href="https://github.com/${c.author.login}" style="color: #58a6ff; text-decoration: none;">@${c.author.login}</a></div>
+              </div>`;
               });
 
               // Read README
@@ -67,18 +62,18 @@ jobs:
               const startTag = '<!-- DISCUSSIONS-COMMENTS-START -->';
               const endTag = '<!-- DISCUSSIONS-COMMENTS-END -->';
               
-              const newContent = `${startTag}\n| User | Comment | Date |\n| --- | --- | --- |\n${tableContent}${endTag}`;
+              const newContent = `${startTag}\n${boxContent}${endTag}`;
               
               // Check if tags exist, if not append them
               if (readme.includes(startTag) && readme.includes(endTag)) {
                 const regex = new RegExp(`${startTag}[\\s\\S]*?${endTag}`, 'g');
                 readme = readme.replace(regex, newContent);
               } else {
-                readme += `\n\n## 💬 Latest Comments\n\n${newContent}\n`;
+                readme += `\n\n## 💬 Comments\n\n${newContent}\n`;
               }
               
               fs.writeFileSync('README.md', readme);
-              console.log(`✅ Updated README with ${comments.length} comments`);
+              console.log(\`✅ Updated README with \${comments.length} comments\`);
               
             } catch (error) {
               console.error("Error fetching discussions:", error);
@@ -89,7 +84,6 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-
           git add README.md
           git commit -m "chore: sync discussion comments" || echo "No changes to commit"
           git push
