@@ -2,10 +2,8 @@
 
 My name is Gabriele Santandrea (**Gab-San**).
 
-Here are some ideas to get you started:
-
-- 🌱 I’m currently a student of HPC Engineering at [Politecnico di Milano]("https://www.polimi.it/")
-- 📫 How to reach me: [gabriele.santandrea@tutamail.com]("mailto:gabriele.santandrea@tutamail.com")
+- 🌱 I’m currently a student of HPC Engineering at [Politecnico di Milano](https://www.polimi.it/)
+- 📫 How to reach me: [gabriele.santandrea@tutamail.com](mailto:gabriele.santandrea@tutamail.com)
 - 😄 Pronouns: he/him
 - ⚡ Fun fact: I am lactose intolerant and my friends call me **Gamba di Squalo** (_Shark's Leg_).
 
@@ -23,7 +21,7 @@ Here are some ideas to get you started:
 
 ---
 
-Shout-out to [Github Stats Extended]("https://github.com/stats-organization/github-stats-extended")
+Shout-out to [Github Stats Extended](https://github.com/stats-organization/github-stats-extended)
 
 Also follow these incredible people👇👇👇👇
 
