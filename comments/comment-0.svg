@@ -1,0 +1,23 @@
+<svg width="600" height="100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style>
+          .card-bg { fill: #0d1117; }
+          .card-border { stroke: #30363d; stroke-width: 1; }
+          .date-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; fill: #8b949e; }
+          .comment-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; fill: #e6edf3; }
+          .author-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; fill: #58a6ff; font-weight: 500; }
+        </style>
+      </defs>
+
+      <!-- Card background -->
+      <rect class="card-bg card-border" x="0" y="0" width="600" height="100" rx="6"/>
+
+      <!-- Date -->
+      <text class="date-text" x="16" y="28">2026-07-26</text>
+
+      <!-- Comment text -->
+      <text class="comment-text" x="16" y="55">A REAL MULTILINE COMMENT?   BOOOOOH</text>
+
+      <!-- Author -->
+      <text class="author-text" x="16" y="84">— @Gab-San</text>
+    </svg>
