@@ -44,8 +44,4 @@ Feel free to leave a comment!👇
 
 <!-- DISCUSSIONS-COMMENTS-START -->
 
-![Gab-San comment](./comments/comment-0.svg)
-
-![Gab-San comment](./comments/comment-1.svg)
-
 <!-- DISCUSSIONS-COMMENTS-END -->
