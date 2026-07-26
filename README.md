@@ -5,11 +5,17 @@ My name is Gabriele Santandrea (**Gab-San**).
 Here are some ideas to get you started:
 
 - 🌱 I’m currently a student of HPC Engineering at [Politecnico di Milano]("https://www.polimi.it/")
-- 📫 How to reach me: [![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-blue)](https://www.linkedin.com/in/gabriele-santandrea-824a403b4/)
+- 📫 How to reach me: [gabriele.santandrea@tutamail.com]("mailto:gabriele.santandrea@tutamail.com")
 - 😄 Pronouns: he/him
 - ⚡ Fun fact: I am lactose intolerant and my friends call me **Gamba di Squalo** (_Shark's Leg_).
 
-Also checkout: [![Static Badge](https://img.shields.io/badge/gitlab-blue?logo=gitlab)](https://gitlab.com/gambadisqualo)
+### Contact Me At
+
+[![Static Badge](https://img.shields.io/badge/gitlab-blue?style=for-the-badge&logo=gitlab)](https://gitlab.com/gambadisqualo)
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/gabriele-santandrea-824a403b4/)
+
+## Stats
+
 
 ![Stats](./profile/stats.svg)
 

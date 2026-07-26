@@ -1,9 +1,7 @@
-name: Sync Discussions Comments to README
+name: Sync Discussions Comments to SVG
 on:
   discussion_comment:
     types: [created, deleted]
-  schedule:
-    - cron: "0 0 * * *" # Runs once daily at midnight
   workflow_dispatch:
 jobs:
   update-readme:
@@ -12,14 +10,21 @@ jobs:
       contents: write
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
-      - name: Fetch Discussion Comments & Update README
-        uses: actions/github-script@v9
+      - name: Fetch Discussion Comments & Generate SVGs
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            const path = require('path');
+            
+            // Create comments directory if it doesn't exist
+            const commentsDir = 'comments';
+            if (!fs.existsSync(commentsDir)) {
+              fs.mkdirSync(commentsDir, { recursive: true });
+            }
             
             // Query GitHub GraphQL API for comments on Discussion #3
             const query = `
@@ -28,13 +33,12 @@ jobs:
                   discussion(number: 3) {
                     comments(last: 50) {
                       nodes {
+                        id
                         author {
                           login
-                          avatarUrl
                         }
                         body
                         createdAt
-                        isAnswer
                       }
                     }
                   }
@@ -46,28 +50,85 @@ jobs:
               const result = await github.graphql(query);
               const comments = result.repository.discussion.comments.nodes || [];
               
-              // Format into styled boxes
-              let boxContent = "";
-              comments.reverse().forEach(c => {
+              // Delete old comment SVGs
+              if (fs.existsSync(commentsDir)) {
+                const files = fs.readdirSync(commentsDir);
+                files.forEach(file => {
+                  if (file.startsWith('comment-') && file.endsWith('.svg')) {
+                    fs.unlinkSync(path.join(commentsDir, file));
+                  }
+                });
+              }
+              
+              // Generate SVG for each comment
+              let markdownLinks = '';
+              comments.reverse().forEach((c, index) => {
                 const date = c.createdAt.split('T')[0];
-                const cleanBody = c.body.trim();
+                const author = c.author.login;
                 
-                const box = '<div style="background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Helvetica, Arial, sans-serif;">' +
-                  '<div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">' + date + '</div>' +
-                  '<div style="color: #e6edf3; margin-bottom: 8px; line-height: 1.5;">' + cleanBody + '</div>' +
-                  '<div style="font-size: 12px; color: #58a6ff; text-align: right;">— <a href="https://github.com/' + c.author.login + '" style="color: #58a6ff; text-decoration: none;">@' + c.author.login + '</a></div>' +
-                  '</div>';
-                boxContent += box;
+                // Truncate and clean comment body
+                let commentText = c.body.replace(/\n/g, ' ').substring(0, 250);
+                if (c.body.length > 250) commentText += '...';
+                
+                // Wrap text to multiple lines (max 60 chars per line)
+                const wrapText = (text, maxWidth = 60) => {
+                  const words = text.split(' ');
+                  const lines = [];
+                  let currentLine = '';
+                  
+                  words.forEach(word => {
+                    if ((currentLine + word).length > maxWidth) {
+                      lines.push(currentLine.trim());
+                      currentLine = word;
+                    } else {
+                      currentLine += (currentLine ? ' ' : '') + word;
+                    }
+                  });
+                  if (currentLine) lines.push(currentLine.trim());
+                  return lines;
+                };
+
+                const textLines = wrapText(commentText);
+                const svgHeight = 80 + (textLines.length * 20);
+
+                // Generate SVG
+                const svg = `<svg width="600" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <style>
+                      .card-bg { fill: #0d1117; }
+                      .card-border { stroke: #30363d; stroke-width: 1; }
+                      .date-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; fill: #8b949e; }
+                      .comment-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; fill: #e6edf3; }
+                      .author-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; fill: #58a6ff; font-weight: 500; }
+                    </style>
+                  </defs>
+
+                  <!-- Card background -->
+                  <rect class="card-bg card-border" x="0" y="0" width="600" height="${svgHeight}" rx="6"/>
+
+                  <!-- Date -->
+                  <text class="date-text" x="16" y="28">${date}</text>
+
+                  <!-- Comment text -->
+                  ${textLines.map((line, i) => `<text class="comment-text" x="16" y="${55 + (i * 20)}">${escapeXml(line)}</text>`).join('\n  ')}
+
+                  <!-- Author -->
+                  <text class="author-text" x="16" y="${svgHeight - 16}">— @${author}</text>
+                </svg>`;
+
+                const fileName = path.join(commentsDir, 'comment-' + index + '.svg');
+
+                fs.writeFileSync(fileName, svg);
+                markdownLinks += '!['+ author + ' comment](./' + fileName + ')\n\n';
               });
 
-              // Read README
+              // Update README
               let readme = fs.readFileSync('README.md', 'utf8');
               const startTag = '<!-- DISCUSSIONS-COMMENTS-START -->';
               const endTag = '<!-- DISCUSSIONS-COMMENTS-END -->';
-              
-              const newContent = startTag + '\n' + boxContent + endTag;
-              
-              // Check if tags exist, if not append them
+
+              const newContent = startTag + '\n\n' + markdownLinks + endTag;
+
               if (readme.includes(startTag) && readme.includes(endTag)) {
                 const regex = new RegExp(startTag + '[\\s\\S]*?' + endTag, 'g');
                 readme = readme.replace(regex, newContent);
@@ -76,17 +137,27 @@ jobs:
               }
               
               fs.writeFileSync('README.md', readme);
-              console.log('✅ Updated README with ' + comments.length + ' comments');
+              console.log('✅ Generated ' + comments.length + ' comment SVGs');
               
             } catch (error) {
-              console.error("Error fetching discussions:", error);
+              console.error('Error fetching discussions:', error);
               throw error;
+            }
+            
+            // Helper function to escape XML special characters
+            function escapeXml(text) {
+              return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
             }
 
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md
-          git commit -m "chore: sync discussion comments" || echo "No changes to commit"
+          git add README.md comments/
+          git commit -m "chore: sync discussion comments to SVG" || echo "No changes to commit"
           git push
