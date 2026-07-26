@@ -30,27 +30,11 @@ Also follow these incredible people👇👇👇👇
 
 ---
 
-<div style="margin-top: 30px; padding: 20px; border-top: 1px solid #30363d;">
-  
-<h2>💬 Comments</h2>
-<p><em>Powered by <a href="https://giscus.app">giscus</a> - Discuss using GitHub Discussions</em></p>
+Feel free to leave a comment!👇
 
-<script src="https://giscus.app/client.js"
-        data-repo="Gab-San/Gab-San"
-        data-repo-id="R_kgDOTj50bQ"
-        data-category="Comments"
-        data-category-id="DIC_kwDOTj50bc4DCAca"
-        data-mapping="specific"
-        data-term="Profile Comments"
-        data-strict="1"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
+[![Comment Button](https://img.shields.io/badge/Comment_💬-orange?style=for-the-badge)](https://github.com/Gab-San/Gab-San/discussions/3)
 
-</div>
+## 💬 Latest Comments
+
+<!-- DISCUSSIONS-COMMENTS-START -->
+<!-- DISCUSSIONS-COMMENTS-END -->

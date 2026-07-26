@@ -1,0 +1,93 @@
+name: Sync Discussions Comments to README
+
+on:
+  discussion_comment:
+    types: [created, deleted]
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Fetch Discussion Comments & Update README
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            // Query GitHub GraphQL API for comments on Discussion #3
+            const query = `
+              query {
+                repository(owner: "${context.repo.owner}", name: "${context.repo.repo}") {
+                  discussion(number: 3) {
+                    comments(last: 50) {
+                      nodes {
+                        author {
+                          login
+                          avatarUrl
+                        }
+                        body
+                        createdAt
+                        isAnswer
+                      }
+                    }
+                  }
+                }
+              }
+            `;
+            
+            try {
+              const result = await github.graphql(query);
+              const comments = result.repository.discussion.comments.nodes || [];
+              
+              if (comments.length === 0) {
+                console.log("No comments found yet");
+                return;
+              }
+              
+              // Format into Markdown Table Rows (reverse to show newest last)
+              let tableContent = "";
+              comments.reverse().forEach(c => {
+                const cleanBody = c.body
+                  .replace(/\r?\n|\r/g, " ")
+                  .substring(0, 100)
+                  .trim() + (c.body.length > 100 ? "..." : "");
+                const date = c.createdAt.split('T')[0];
+                tableContent += `| [@${c.author.login}](https://github.com/${c.author.login}) | ${cleanBody} | ${date} |\n`;
+              });
+
+              // Read README
+              let readme = fs.readFileSync('README.md', 'utf8');
+              const startTag = '<!-- DISCUSSIONS-COMMENTS-START -->';
+              const endTag = '<!-- DISCUSSIONS-COMMENTS-END -->';
+              
+              const newContent = `${startTag}\n| User | Comment | Date |\n| --- | --- | --- |\n${tableContent}${endTag}`;
+              
+              // Check if tags exist, if not append them
+              if (readme.includes(startTag) && readme.includes(endTag)) {
+                const regex = new RegExp(`${startTag}[\\s\\S]*?${endTag}`, 'g');
+                readme = readme.replace(regex, newContent);
+              } else {
+                readme += `\n\n## 💬 Latest Comments\n\n${newContent}\n`;
+              }
+              
+              fs.writeFileSync('README.md', readme);
+              console.log(`✅ Updated README with ${comments.length} comments`);
+              
+            } catch (error) {
+              console.error("Error fetching discussions:", error);
+              throw error;
+            }
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add README.md
+          git commit -m "chore: sync discussion comments" || echo "No changes to commit"
+          git push
