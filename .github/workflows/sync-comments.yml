@@ -1,10 +1,10 @@
 name: Sync Discussions Comments to README
-
 on:
   discussion_comment:
-    types: [created, deleted]
+    types: [deleted]
+  schedule:
+    - cron: "0 0 * * *" # Runs once daily at midnight
   workflow_dispatch:
-
 jobs:
   update-readme:
     runs-on: ubuntu-latest
