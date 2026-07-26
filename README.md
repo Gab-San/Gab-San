@@ -37,8 +37,4 @@ Feel free to leave a comment!👇
 ## 💬 Latest Comments
 
 <!-- DISCUSSIONS-COMMENTS-START -->
-| User | Comment | Date |
-| --- | --- | --- |
-| [@Gab-San](https://github.com/Gab-San) | TEEST | 2026-07-26 |
-| [@Gab-San](https://github.com/Gab-San) | TEEEEST | 2026-07-26 |
-<!-- DISCUSSIONS-COMMENTS-END -->
+<div style="background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;"><div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">2026-07-26</div><div style="color: #e6edf3; margin-bottom: 8px; line-height: 1.5;">TEEEST</div><div style="font-size: 12px; color: #58a6ff; text-align: right;">— <a href="https://github.com/Gab-San" style="color: #58a6ff; text-decoration: none;">@Gab-San</a></div></div><div style="background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;"><div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">2026-07-26</div><div style="color: #e6edf3; margin-bottom: 8px; line-height: 1.5;">TEEEEST</div><div style="font-size: 12px; color: #58a6ff; text-align: right;">— <a href="https://github.com/Gab-San" style="color: #58a6ff; text-decoration: none;">@Gab-San</a></div></div><!-- DISCUSSIONS-COMMENTS-END -->
