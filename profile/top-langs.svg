@@ -130,17 +130,7 @@
           data-testid="lang-progress"
           x="0"
           y="0"
-          width="222.07"
-          height="8"
-          fill="#e34c26"
-        />
-      
-        <rect
-          mask="url(#rect-mask)"
-          data-testid="lang-progress"
-          x="222.07"
-          y="0"
-          width="26.07"
+          width="242.56"
           height="8"
           fill="#b07219"
         />
@@ -148,29 +138,9 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="248.14"
+          x="242.56"
           y="0"
-          width="10.62"
-          height="8"
-          fill="#f1e05a"
-        />
-      
-        <rect
-          mask="url(#rect-mask)"
-          data-testid="lang-progress"
-          x="248.76"
-          y="0"
-          width="10.56"
-          height="8"
-          fill="#663399"
-        />
-      
-        <rect
-          mask="url(#rect-mask)"
-          data-testid="lang-progress"
-          x="249.32"
-          y="0"
-          width="10.37"
+          width="13.43"
           height="8"
           fill="#adb2cb"
         />
@@ -178,55 +148,68 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="249.69"
+          x="245.99"
           y="0"
-          width="10.32"
+          width="12.96"
           height="8"
           fill="#f34b7d"
+        />
+      
+        <rect
+          mask="url(#rect-mask)"
+          data-testid="lang-progress"
+          x="248.95000000000002"
+          y="0"
+          width="10.93"
+          height="8"
+          fill="#3D6117"
+        />
+      
+        <rect
+          mask="url(#rect-mask)"
+          data-testid="lang-progress"
+          x="249.88000000000002"
+          y="0"
+          width="10.12"
+          height="8"
+          fill="#DA3434"
         />
       
       
     <g transform="translate(0, 25)">
       <g transform="translate(0, 0)"><g transform="translate(0, 0)">
     <g class="stagger" style="animation-delay: 450ms">
-      <circle cx="5" cy="6" r="5" fill="#e34c26" />
-      <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        HTML 88.83%
-      </text>
-    </g>
-  </g><g transform="translate(0, 25)">
-    <g class="stagger" style="animation-delay: 600ms">
       <circle cx="5" cy="6" r="5" fill="#b07219" />
       <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        Java 10.43%
-      </text>
-    </g>
-  </g><g transform="translate(0, 50)">
-    <g class="stagger" style="animation-delay: 750ms">
-      <circle cx="5" cy="6" r="5" fill="#f1e05a" />
-      <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        JavaScript 0.25%
-      </text>
-    </g>
-  </g></g><g transform="translate(150, 0)"><g transform="translate(0, 0)">
-    <g class="stagger" style="animation-delay: 450ms">
-      <circle cx="5" cy="6" r="5" fill="#663399" />
-      <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        CSS 0.22%
+        Java 97.03%
       </text>
     </g>
   </g><g transform="translate(0, 25)">
     <g class="stagger" style="animation-delay: 600ms">
       <circle cx="5" cy="6" r="5" fill="#adb2cb" />
       <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        VHDL 0.15%
+        VHDL 1.37%
       </text>
     </g>
   </g><g transform="translate(0, 50)">
     <g class="stagger" style="animation-delay: 750ms">
       <circle cx="5" cy="6" r="5" fill="#f34b7d" />
       <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        C++ 0.13%
+        C++ 1.18%
+      </text>
+    </g>
+  </g></g><g transform="translate(150, 0)"><g transform="translate(0, 0)">
+    <g class="stagger" style="animation-delay: 450ms">
+      <circle cx="5" cy="6" r="5" fill="#3D6117" />
+      <text data-testid="lang-name" x="15" y="10" class='lang-name'>
+        TeX 0.37%
+      </text>
+    </g>
+  </g><g transform="translate(0, 25)">
+    <g class="stagger" style="animation-delay: 600ms">
+      <circle cx="5" cy="6" r="5" fill="#DA3434" />
+      <text data-testid="lang-name" x="15" y="10" class='lang-name'>
+        CMake 0.05%
       </text>
     </g>
   </g></g>
