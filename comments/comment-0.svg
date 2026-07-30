@@ -1,4 +1,4 @@
-<svg width="600" height="120" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="140" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <style>
           .card-bg { fill: #0d1117; }
@@ -10,15 +10,16 @@
       </defs>
 
       <!-- Card background -->
-      <rect class="card-bg card-border" x="0" y="0" width="600" height="120" rx="6"/>
+      <rect class="card-bg card-border" x="0" y="0" width="600" height="140" rx="6"/>
 
       <!-- Date -->
       <text class="date-text" x="16" y="28">2026-07-26</text>
 
       <!-- Comment text -->
       <text class="comment-text" x="16" y="55">Hello everybody! This is a test comment to show you how it</text>
-  <text class="comment-text" x="16" y="75">is DOOOONE!😳😎😎😎😎😎😎😎😲</text>
+  <text class="comment-text" x="16" y="75">is DOOOONE!😳😎😎😎😎😎😎😎😲 Of course everything was made</text>
+  <text class="comment-text" x="16" y="95">thanks to our common french friend (Claude)...</text>
 
       <!-- Author -->
-      <text class="author-text" x="16" y="104">— @Gab-San</text>
+      <text class="author-text" x="16" y="124">— @Gab-San</text>
     </svg>
